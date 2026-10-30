@@ -17,4 +17,16 @@ Aplikasi ini dibuat menggunakan **Java** dan dikembangkan melalui **Apache NetBe
 
 ## 📚 Progress
 
-- **RPL M3** — Pembuatan dan upload awal project.
+RPL M3
+
+Pada pertemuan M3 dilakukan pengembangan beberapa fitur pada aplikasi, meliputi:
+
+Menghubungkan aplikasi dengan database MySQL.
+
+Membuat tampilan stok bahan.
+
+Menambahkan fitur transaksi pembelian.
+
+Menambahkan proses pembayaran.
+
+Menyimpan transaksi yang telah berhasil dibayar ke dalam riwayat pembayaran.
