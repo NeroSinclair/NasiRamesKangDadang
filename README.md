@@ -15,7 +15,7 @@ Repository ini dibuat untuk memenuhi tugas **Praktikum Rekayasa Perangkat Lunak 
 
 Aplikasi ini dibuat menggunakan **Java** dan dikembangkan melalui **Apache NetBeans**.
 
-🛠️ Teknologi yang Digunakan
+## 🛠️ Teknologi yang Digunakan
 
 Java — Bahasa pemrograman utama.
 
