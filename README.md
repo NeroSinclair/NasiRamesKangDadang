@@ -15,6 +15,23 @@ Repository ini dibuat untuk memenuhi tugas **Praktikum Rekayasa Perangkat Lunak 
 
 Aplikasi ini dibuat menggunakan **Java** dan dikembangkan melalui **Apache NetBeans**.
 
+🛠️ Teknologi yang Digunakan
+
+Java — Bahasa pemrograman utama.
+
+Java Swing — Pembuatan antarmuka aplikasi desktop.
+
+Apache NetBeans — IDE pengembangan aplikasi.
+
+MySQL & Laragon — Penyimpanan dan pengelolaan database.
+
+JDBC — Koneksi dan pengolahan database secara langsung.
+
+Hibernate ORM — Pemetaan tabel database menjadi objek Java.
+
+Apache Maven — Pengelolaan dependency project.
+
+
 ## 📚 Progress
 
 -  RPL M3 — Pengembangan Database dan Transaksi
