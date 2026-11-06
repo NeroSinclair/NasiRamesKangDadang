@@ -1,4 +1,8 @@
 com\mycompany\nasirameskangdadang\Main.class
 com\mycompany\nasirameskangdadang\NasiRamesKangDadang.class
+com\mycompany\nasirameskangdadang\Bahan.class
+com\mycompany\nasirameskangdadang\Menu.class
 com\mycompany\nasirameskangdadang\Koneksi.class
 com\mycompany\nasirameskangdadang\DataPanel.class
+com\mycompany\nasirameskangdadang\HibernateUtil.class
+com\mycompany\nasirameskangdadang\DataDAO.class

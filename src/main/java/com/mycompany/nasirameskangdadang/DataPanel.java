@@ -52,35 +52,84 @@ public class DataPanel extends JPanel {
     }
 
     void menu() {
-        JPanel p=grid(0,3);
+    JPanel p=grid(0,3);
 
-        try(var c=Koneksi.getConnection(); var s=c.createStatement();
-            var r=s.executeQuery("SELECT * FROM menu")) {
-            while(r.next()) {
-                String n=r.getString("nama_menu");
-                JPanel m=box(); m.setLayout(new BorderLayout(0,8));
-                m.add(image(gambar(n)));
-                m.add(new JLabel("<html><b>"+n+"</b><br><font color='#962323'>"+
-                    rupiah(r.getInt("harga"))+"</font></html>"),BorderLayout.SOUTH);
-                p.add(m);
-            }
-        } catch(Exception e) { error(e); }
+    try {
+        for(Menu m:DataDAO.getMenu()) {
+            String n=m.getNamaMenu();
+            JPanel c=box();
+            c.setLayout(new BorderLayout(0,15));
 
-        add(scroll(p));
-    }
+            JPanel isi=new JPanel();
+            isi.setOpaque(false);
+            isi.setLayout(new BoxLayout(isi,BoxLayout.Y_AXIS));
+
+            JLabel foto=image(gambar(n));
+            foto.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel nama=new JLabel(n,SwingConstants.CENTER);
+            nama.setFont(new Font("SansSerif",Font.BOLD,19));
+            nama.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JTextArea desc=new JTextArea(deskripsi(n));
+            desc.setFont(new Font("SansSerif",Font.PLAIN,13));
+            desc.setForeground(Color.GRAY);
+            desc.setLineWrap(true); desc.setWrapStyleWord(true);
+            desc.setEditable(false); desc.setOpaque(false);
+            desc.setFocusable(false);
+            desc.setMaximumSize(new Dimension(260,65));
+
+            String bahan=n.toLowerCase().contains("ayam")?"Ayam":
+                         n.toLowerCase().contains("telur")?"Telur":"Tempe";
+
+            JLabel komposisi=new JLabel("Nasi  •  "+bahan+"  •  Sayur");
+            komposisi.setForeground(RED);
+            komposisi.setFont(new Font("SansSerif",Font.PLAIN,12));
+            komposisi.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            isi.add(foto);
+            isi.add(Box.createVerticalStrut(18));
+            isi.add(nama);
+            isi.add(Box.createVerticalStrut(12));
+            isi.add(desc);
+            isi.add(Box.createVerticalStrut(15));
+            isi.add(new JSeparator());
+            isi.add(Box.createVerticalStrut(15));
+            isi.add(komposisi);
+
+            JPanel hargaBox=new JPanel(new BorderLayout());
+            hargaBox.setBackground(new Color(250,235,235));
+            hargaBox.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
+
+            JLabel harga=new JLabel(rupiah(m.getHarga()),SwingConstants.CENTER);
+            harga.setFont(new Font("SansSerif",Font.BOLD,20));
+            harga.setForeground(RED);
+            hargaBox.add(harga);
+
+            c.add(isi,BorderLayout.NORTH);
+            c.add(hargaBox,BorderLayout.SOUTH);
+            p.add(c);
+        }
+    } catch(Exception e) { error(e); }
+
+    add(scroll(p));
+}
 
     void stok() {
-        DefaultTableModel m=new DefaultTableModel(
-            new String[]{"ID","Bahan","Stok","Satuan"},0);
+    DefaultTableModel m=new DefaultTableModel(
+        new String[]{"ID","Bahan","Stok","Satuan"},0);
 
-        try(var c=Koneksi.getConnection(); var s=c.createStatement();
-            var r=s.executeQuery("SELECT * FROM bahan")) {
-            while(r.next()) m.addRow(new Object[]{
-                r.getInt("id_bahan"),r.getString("nama_bahan"),
-                r.getInt("stok"),r.getString("satuan")});
+    try {
+        for(Bahan b:DataDAO.getBahan())
+            m.addRow(new Object[]{
+                b.getIdBahan(),b.getNamaBahan(),
+                b.getStok(),b.getSatuan()
+            });
         } catch(Exception e) { error(e); }
 
-        JTable t=new JTable(m); table(t); add(scroll(t));
+        JTable t=new JTable(m);
+        table(t);
+        add(scroll(t));
     }
 
     void transaksi() {
@@ -240,64 +289,74 @@ public class DataPanel extends JPanel {
         return 0;
     }
 
-    JPanel box() {
-        JPanel p=new JPanel(); p.setBackground(Color.WHITE);
-        p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
-        p.setBorder(BorderFactory.createEmptyBorder(18,18,18,18));
-        return p;
-    }
 
-    JPanel grid(int r,int c) {
-        JPanel p=new JPanel(new GridLayout(r,c,16,16)); p.setOpaque(false);
-        return p;
-    }
+JPanel box() {
+    JPanel p=new JPanel(); p.setBackground(Color.WHITE);
+    p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
+    p.setBorder(BorderFactory.createEmptyBorder(18,18,18,18));
+    return p;
+}
 
-    JButton button(String s) {
-        JButton b=new JButton(s); b.setBackground(RED);
-        b.setForeground(Color.WHITE); b.setFocusPainted(false); return b;
-    }
+JPanel grid(int r,int c) {
+    JPanel p=new JPanel(new GridLayout(r,c,16,16)); p.setOpaque(false);
+    return p;
+}
 
-    void table(JTable t) {
-        t.setRowHeight(36); t.setShowVerticalLines(false);
-    }
+JButton button(String s) {
+    JButton b=new JButton(s); b.setBackground(RED);
+    b.setForeground(Color.WHITE); b.setFocusPainted(false); return b;
+}
 
-    JScrollPane scroll(Component c) {
-        JScrollPane s=new JScrollPane(c); s.setBorder(null); return s;
-    }
+void table(JTable t) {
+    t.setRowHeight(36); t.setShowVerticalLines(false);
+}
 
-    JLabel image(String f) {
-        var u=getClass().getResource("/images/"+f);
-        if(u==null) return center("No Image");
-        Image i=new ImageIcon(u).getImage()
-            .getScaledInstance(200,135,Image.SCALE_SMOOTH);
-        return new JLabel(new ImageIcon(i),SwingConstants.CENTER);
-    }
+JScrollPane scroll(Component c) {
+    JScrollPane s=new JScrollPane(c); s.setBorder(null); return s;
+}
 
-    String gambar(String n) {
-        n=n.toLowerCase();
-        if(n.contains("ayam")) return "nasi_rames_ayam.jpg";
-        if(n.contains("telur")) return "nasi_rames_telur.jpg";
-        return "nasi_rames_tempe.jpg";
-    }
+JLabel image(String f) {
+    var u=getClass().getResource("/images/"+f);
+    if(u==null) return center("No Image");
+    Image i=new ImageIcon(u).getImage()
+        .getScaledInstance(200,135,Image.SCALE_SMOOTH);
+    return new JLabel(new ImageIcon(i),SwingConstants.CENTER);
+}
 
-    String rupiah(int n) {
-        return "Rp"+NumberFormat.getNumberInstance(
-            new Locale("id","ID")).format(n);
-    }
+String gambar(String n) {
+    n=n.toLowerCase();
+    if(n.contains("ayam")) return "nasi_rames_ayam.jpg";
+    if(n.contains("telur")) return "nasi_rames_telur.jpg";
+    return "nasi_rames_tempe.jpg";
+}
 
-    JLabel center(String s) {
-        return new JLabel(s,SwingConstants.CENTER);
-    }
+String deskripsi(String n) {
+    n=n.toLowerCase();
+    if(n.contains("ayam"))
+        return "Nasi putih dengan ayam goreng, sayuran, dan sambal.";
+    if(n.contains("telur"))
+        return "Nasi putih dengan telur, sayuran, dan sambal.";
+    return "Nasi putih dengan tempe, sayuran, dan sambal.";
+}
 
-    void refresh() {
-        removeAll();
-        JLabel j=new JLabel("Transaksi Kasir");
-        j.setFont(new Font("SansSerif",Font.BOLD,28));
-        add(j,BorderLayout.NORTH); transaksi();
-        revalidate(); repaint();
-    }
+String rupiah(int n) {
+    return "Rp"+NumberFormat.getNumberInstance(
+        new Locale("id","ID")).format(n);
+}
 
-    void error(Exception e) {
-        JOptionPane.showMessageDialog(this,e.getMessage());
-    }
+JLabel center(String s) {
+    return new JLabel(s,SwingConstants.CENTER);
+}
+
+void refresh() {
+    removeAll();
+    JLabel j=new JLabel("Transaksi Kasir");
+    j.setFont(new Font("SansSerif",Font.BOLD,28));
+    add(j,BorderLayout.NORTH); transaksi();
+    revalidate(); repaint();
+}
+
+void error(Exception e) {
+    JOptionPane.showMessageDialog(this,e.getMessage());
+}
 }
