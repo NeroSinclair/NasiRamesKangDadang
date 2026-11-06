@@ -29,7 +29,7 @@ Aplikasi ini dibuat menggunakan **Java** dan dikembangkan melalui **Apache NetBe
 
 -  RPL M4 — Implementasi ORM Hibernate dan Pengembangan Tampilan
 
-    Pada pertemuan M4, kita berfokus pada penerapan Object-Relational Mapping (ORM) menggunakan framework Hibernate untuk meningkatkan struktur pengolahan data pada aplikasi. engembangan yang dilakukan meliputi:
+    Pada pertemuan M4, kita berfokus pada penerapan Object-Relational Mapping (ORM) menggunakan framework Hibernate untuk meningkatkan struktur pengolahan data pada aplikasi. Pengembangan yang dilakukan meliputi:
      - Menghubungkan aplikasi Java dengan database MySQL menggunakan JDBC.
      - Menambahkan dependency Hibernate ORM pada konfigurasi Maven (pom.xml).
      - Membuat class HibernateUtil.java untuk mengatur konfigurasi Hibernate dan koneksi ke MySQL.
