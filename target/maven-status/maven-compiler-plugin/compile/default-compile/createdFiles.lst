@@ -3,7 +3,6 @@ com\mycompany\nasirameskangdadang\Bahan.class
 com\mycompany\nasirameskangdadang\BahanService.class
 com\mycompany\nasirameskangdadang\Menu.class
 com\mycompany\nasirameskangdadang\Koneksi.class
-com\mycompany\nasirameskangdadang\DataPanel$2.class
 com\mycompany\nasirameskangdadang\HibernateUtil.class
 com\mycompany\nasirameskangdadang\DataPanel$1.class
 com\mycompany\nasirameskangdadang\DataDAO.class
