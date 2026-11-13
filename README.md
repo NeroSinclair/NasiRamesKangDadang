@@ -55,3 +55,15 @@ Apache Maven — Pengelolaan dependency project.
      - Mengintegrasikan Hibernate ke halaman Data Menu dan Stok Bahan sebagai pengganti pengambilan data menggunakan JDBC manual pada kedua halaman tersebut.
      - Melakukan pengujian pengambilan data dari database melalui Hibernate.
      - Memperbarui tampilan Data Menu dengan menambahkan deskripsi makanan, informasi komposisi, dan kotak harga agar lebih informatif serta menarik.
+
+-  RPL M5 — Implementasi Spring Framework dan Hibernate
+
+    Pada pertemuan M5 dilakukan pengembangan aplikasi dengan mengimplementasikan Spring Framework dan Hibernate ORM untuk meningkatkan pengelolaan data serta efisiensi kode program.
+    Pengembangan yang dilakukan meliputi:
+     - Mengintegrasikan Spring Framework dan Hibernate dengan database MySQL.
+     - Menambahkan konfigurasi applicationContext.xml.
+     - Mengimplementasikan entity Bahan.java untuk pemetaan data bahan ke database.
+     - Menambahkan BahanService.java dan SpringUtil.java untuk pengelolaan data dan konfigurasi Spring.
+     - Mengembangkan fitur penambahan stok bahan secara langsung melalui aplikasi tanpa harus mengubah data secara manual di database.
+     - Menambahkan pilihan bahan, tombol plus dan minus, serta preview jumlah stok akhir.
+     - Memperbarui tampilan stok secara otomatis setelah perubahan berhasil disimpan ke database.
