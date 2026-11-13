@@ -11,7 +11,7 @@ public class HibernateUtil {
         .setProperty("hibernate.connection.username", "root")
         .setProperty("hibernate.connection.password", "")
         .setProperty("hibernate.hbm2ddl.auto", "validate")
-        .setProperty("hibernate.show_sql", "false")
+        .setProperty("hibernate.show_sql", "true")
         .addAnnotatedClass(Menu.class)
         .addAnnotatedClass(Bahan.class)
         .buildSessionFactory();
