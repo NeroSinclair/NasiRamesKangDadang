@@ -2,6 +2,8 @@
 package com.mycompany.nasirameskangdadang;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.text.NumberFormat;
 import java.util.*;
@@ -13,7 +15,6 @@ public class DataPanel extends JPanel {
     static final Color GREEN=new Color(40,140,80);
     static final DefaultTableModel cart=model("Menu","Qty","Subtotal");
     static int total=0;
-
     public DataPanel(String page) {
         setLayout(new BorderLayout(0,18)); setBackground(BG);
         setBorder(BorderFactory.createEmptyBorder(28,32,28,32));
@@ -33,7 +34,6 @@ public class DataPanel extends JPanel {
         }
         revalidate(); repaint();
     }
-
     // DASHBOARD
     void dashboard() {
         JPanel p=grid(2,2);
@@ -50,7 +50,6 @@ public class DataPanel extends JPanel {
         p.add(new JLabel(title)); gap(p,10); p.add(label(value,24,RED));
         return p;
     }
-
     // DATA MENU
     void menu() {
         JPanel p=grid(0,3);
@@ -76,7 +75,6 @@ public class DataPanel extends JPanel {
         } catch(Exception e) { error(e); }
         add(scroll(p));
     }
-
     // STOK BAHAN
     void stok() {
         JPanel p=panel(new GridLayout(0,1,0,12)), row=null;
@@ -100,16 +98,30 @@ public class DataPanel extends JPanel {
         isi.add(image(gambarBahan(b.getNamaBahan()),180,105)); gap(isi,10);
         isi.add(label(b.getNamaBahan(),18,Color.BLACK)); gap(isi,5);
         isi.add(label("Stok tersedia",12,Color.GRAY));
-        isi.add(label(""+s,28,RED)); gap(isi,4);
-        isi.add(label(s>10?"Stok Aman":s>0?"Stok Menipis":"Stok Habis",12,s>10?GREEN:RED));
+        isi.add(label(""+s,28,RED));
+        String teks=s>10?"Stok Aman":s>0?"Stok Menipis":"Stok Habis";
+        Color warna=s>10?GREEN:s>0?new Color(174,112,19):RED;
+        JLabel status=label(teks,12,warna);
+        status.setOpaque(true);
+        status.setBackground(s>10?new Color(232,247,237):
+            s>0?new Color(255,245,223):new Color(255,235,235));
+        status.setBorder(BorderFactory.createEmptyBorder(6,4,6,4));
         JButton btn=button("+ Tambah Stok",()->inputStok(b));
-        btn.setPreferredSize(new Dimension(200,34));
-        JPanel c=tile(isi,btn,8);
-        c.setPreferredSize(new Dimension(240,278));
-        c.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(230,225,225)),
-            BorderFactory.createEmptyBorder(12,14,12,14)));
+        btn.setPreferredSize(new Dimension(200,36));
+        JPanel bawah=panel(new BorderLayout(0,8));
+        bawah.add(status,BorderLayout.NORTH); bawah.add(btn,BorderLayout.SOUTH);
+        JPanel c=tile(isi,bawah,10);
+        c.setPreferredSize(new Dimension(240,322));
+        c.setBorder(stokBorder(new Color(230,225,225)));
+        c.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) { c.setBorder(stokBorder(new Color(176,74,74))); }
+            public void mouseExited(MouseEvent e) { c.setBorder(stokBorder(new Color(230,225,225))); }
+        });
         return c;
+    }
+    javax.swing.border.Border stokBorder(Color c) {
+        return BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(c),
+            BorderFactory.createEmptyBorder(12,14,12,14));
     }
     void inputStok(Bahan b) {
         JPanel p=stack(); JLabel qty=label("1",26,RED), hasil=label("",15,GREEN);
@@ -129,7 +141,6 @@ public class DataPanel extends JPanel {
             showPage("Stok Bahan");
         } catch(Exception | LinkageError e) { error(e); }
     }
-
     // TRANSAKSI KASIR
     void transaksi() {
         JPanel f=panel(new BorderLayout()), btn=panel(new FlowLayout(FlowLayout.RIGHT));
@@ -199,7 +210,6 @@ public class DataPanel extends JPanel {
         } catch(Exception e) { error(e); }
         add(scroll(table(m)));
     }
-
     // DATABASE
     int menuValue(String n,String kolom) throws SQLException {
         try(var c=Koneksi.getConnection(); var p=c.prepareStatement("SELECT "+kolom+" FROM menu WHERE nama_menu=?")) {
@@ -214,7 +224,6 @@ public class DataPanel extends JPanel {
         } catch(Exception e) { error(e); }
         return 0;
     }
-
     // KOMPONEN UI YANG DIPAKAI ULANG
     JPanel panel(LayoutManager l) { JPanel p=new JPanel(l); p.setOpaque(false); return p; }
     JPanel stack() { JPanel p=panel(null); p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS)); return p; }
@@ -234,16 +243,23 @@ public class DataPanel extends JPanel {
     }
     JButton button(String s,Runnable action) {
         JButton b=new JButton(s); b.setBackground(RED); b.setForeground(Color.WHITE);
-        b.setFocusPainted(false); b.setBorder(BorderFactory.createEmptyBorder(8,12,8,12));
-        b.setCursor(new Cursor(Cursor.HAND_CURSOR)); b.addActionListener(e->action.run()); return b;
+        b.setFocusPainted(false); b.setOpaque(true);
+        b.setBorder(BorderFactory.createEmptyBorder(8,12,8,12));
+        b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if(action!=null) b.addActionListener(e->action.run());
+        b.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) { if(b.isEnabled()) b.setBackground(new Color(174,49,49)); }
+            public void mouseExited(MouseEvent e) { b.setBackground(RED); }
+            public void mousePressed(MouseEvent e) { if(b.isEnabled()) b.setBackground(new Color(116,27,27)); }
+            public void mouseReleased(MouseEvent e) { b.setBackground(b.contains(e.getPoint())?new Color(174,49,49):RED); }
+        });
+        return b;
     }
     JPanel quantity(JLabel qty,int max,Runnable changed) {
         JPanel p=panel(new GridLayout(1,3,10,0)); p.setMaximumSize(new Dimension(230,42));
-        JButton min=new JButton("−"), plus=new JButton("+");
-        for(JButton b:new JButton[]{min,plus}) {
-            b.setBackground(RED); b.setForeground(Color.WHITE); b.setFocusPainted(false);
-            b.setPreferredSize(new Dimension(50,38)); b.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        }
+        JButton min=button("−",null), plus=button("+",null);
+        min.setPreferredSize(new Dimension(50,38));
+        plus.setPreferredSize(new Dimension(50,38));
         Runnable update=()->{ min.setEnabled(number(qty)>1); plus.setEnabled(number(qty)<max); changed.run(); };
         min.addActionListener(e->{ if(number(qty)>1) qty.setText(""+(number(qty)-1)); update.run(); });
         plus.addActionListener(e->{ if(number(qty)<max) qty.setText(""+(number(qty)+1)); update.run(); });
