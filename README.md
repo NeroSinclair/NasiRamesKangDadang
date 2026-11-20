@@ -1,69 +1,162 @@
-# 🍛 Nasi Rames Kang Dadang
+🍛 Nasi Rames Kang Dadang
 
-Repository ini dibuat untuk memenuhi tugas **Praktikum Rekayasa Perangkat Lunak 2 (RPL 2)**.
+Aplikasi Kasir dan Manajemen Stok Berbasis Java Desktop
 
-## 👤 Identitas
+Project ini dikembangkan untuk memenuhi tugas Praktikum Rekayasa Perangkat Lunak 2 (RPL 2) Universitas Gunadarma.
 
-**Nama:** Fitra Naufal Eka Bayu W.  
-**NPM:** 50423515  
-**Kelas:** 4IA21  
-**Mata Kuliah:** Praktikum Rekayasa Perangkat Lunak 2
+Informasi Mahasiswa
 
-## 📌 Tentang Project
+Nama: Fitra Naufal Eka Bayu W.
 
-**Nasi Rames Kang Dadang** merupakan aplikasi yang dikembangkan sebagai project dalam Praktikum Rekayasa Perangkat Lunak 2.
+NPM: 50423515
 
-Aplikasi ini dibuat menggunakan **Java** dan dikembangkan melalui **Apache NetBeans**.
+Kelas: 4IA21
 
-## 🛠️ Teknologi yang Digunakan
+Mata Kuliah: Praktikum Rekayasa Perangkat Lunak 2
 
-Java — Bahasa pemrograman utama.
+Deskripsi Project
 
-Java Swing — Pembuatan antarmuka aplikasi desktop.
+Nasi Rames Kang Dadang merupakan aplikasi desktop berbasis Java Swing yang dirancang untuk membantu pengelolaan menu makanan, persediaan bahan, transaksi kasir, pembayaran, dan riwayat penjualan.
 
-Apache NetBeans — IDE pengembangan aplikasi.
+Aplikasi menggunakan MySQL sebagai database, Hibernate sebagai ORM, dan Spring Framework untuk Dependency Injection. Pada pertemuan 6, aplikasi mulai dikembangkan dengan JasperReports untuk menghasilkan laporan penjualan.
 
-MySQL & Laragon — Penyimpanan dan pengelolaan database.
+Teknologi yang Digunakan
 
-JDBC — Koneksi dan pengolahan database secara langsung.
+Java Swing — Antarmuka aplikasi desktop
 
-Hibernate ORM — Pemetaan tabel database menjadi objek Java.
+Apache NetBeans — IDE pengembangan
 
-Apache Maven — Pengelolaan dependency project.
+Maven — Manajemen dependency
 
+MySQL & Laragon — Database
 
-## 📚 Progress
+JDBC — Koneksi dan transaksi database
 
--  RPL M3 — Pengembangan Database dan Transaksi
+Hibernate ORM — Pengelolaan entity database
 
-    Pada pertemuan M3, kita melanjutkan pengembangan aplikasi dengan menambahkan beberapa fitur utama, yaitu:
-     - Menghubungkan aplikasi Java dengan database MySQL menggunakan JDBC.
-     - Membuat halaman Data Menu dan Stok Bahan.
-     - Menambahkan fitur transaksi pembelian beserta keranjang pesanan.
-     - Membuat perhitungan total pembayaran secara otomatis.
-     - Menambahkan proses konfirmasi pembayaran.
-     - Menyimpan data transaksi ke database dan menampilkan pembayaran yang berhasil pada halaman Riwayat Transaksi.
+Spring Framework — Dependency Injection
 
--  RPL M4 — Implementasi ORM Hibernate dan Pengembangan Tampilan
+Jaspersoft Studio 6.21.5 — Desain laporan
 
-    Pada pertemuan M4, kita berfokus pada penerapan Object-Relational Mapping (ORM) menggunakan framework Hibernate untuk meningkatkan struktur pengolahan data pada aplikasi. Pengembangan yang dilakukan meliputi:
-     - Menghubungkan aplikasi Java dengan database MySQL menggunakan JDBC.
-     - Menambahkan dependency Hibernate ORM pada konfigurasi Maven (pom.xml).
-     - Membuat class HibernateUtil.java untuk mengatur konfigurasi Hibernate dan koneksi ke MySQL.
-     - Membuat Entity Menu.java dan Bahan.java untuk memetakan tabel database menjadi objek Java.
-     - Membuat class DataDAO.java untuk mengambil data menu dan bahan menggunakan Hibernate Query Language (HQL).
-     - Mengintegrasikan Hibernate ke halaman Data Menu dan Stok Bahan sebagai pengganti pengambilan data menggunakan JDBC manual pada kedua halaman tersebut.
-     - Melakukan pengujian pengambilan data dari database melalui Hibernate.
-     - Memperbarui tampilan Data Menu dengan menambahkan deskripsi makanan, informasi komposisi, dan kotak harga agar lebih informatif serta menarik.
+JasperReports — Pembuatan dan penampilan laporan
 
--  RPL M5 — Implementasi Spring Framework dan Hibernate
+Git & GitHub — Version control
 
-    Pada pertemuan M5 dilakukan pengembangan aplikasi dengan mengimplementasikan Spring Framework dan Hibernate ORM untuk meningkatkan pengelolaan data serta efisiensi kode program.
-    Pengembangan yang dilakukan meliputi:
-     - Mengintegrasikan Spring Framework dan Hibernate dengan database MySQL.
-     - Menambahkan konfigurasi applicationContext.xml.
-     - Mengimplementasikan entity Bahan.java untuk pemetaan data bahan ke database.
-     - Menambahkan BahanService.java dan SpringUtil.java untuk pengelolaan data dan konfigurasi Spring.
-     - Mengembangkan fitur penambahan stok bahan secara langsung melalui aplikasi tanpa harus mengubah data secara manual di database.
-     - Menambahkan pilihan bahan, tombol plus dan minus, serta preview jumlah stok akhir.
-     - Memperbarui tampilan stok secara otomatis setelah perubahan berhasil disimpan ke database.
+Fitur Aplikasi
+
+Dashboard: Menampilkan ringkasan penjualan, menu, stok bahan, dan transaksi harian.
+
+Data Menu: Menampilkan daftar nasi rames beserta gambar, deskripsi, dan harga.
+
+Stok Bahan: Menampilkan persediaan Beras, Ayam, Telur, Tempe, dan Sayur.
+
+Tambah Stok: Menambahkan stok langsung dari aplikasi menggunakan tombol plus dan minus.
+
+Transaksi Kasir: Memilih menu, menentukan jumlah pesanan, dan menghitung total pembayaran.
+
+Pembayaran: Mencatat transaksi yang berhasil dibayar.
+
+Riwayat Transaksi: Menampilkan transaksi dengan status LUNAS.
+
+Laporan Penjualan: Pengembangan template dan integrasi JasperReports (M6, dalam proses).
+
+Riwayat Pengembangan
+
+M2 — Pembuatan Antarmuka
+
+Membuat struktur awal aplikasi Java Swing.
+
+Membuat sidebar dan navigasi halaman.
+
+Menyiapkan Dashboard, Data Menu, Stok Bahan, Transaksi Kasir, dan Riwayat Transaksi.
+
+M3 — Integrasi Database
+
+Menghubungkan aplikasi dengan MySQL melalui JDBC.
+
+Menampilkan data menu dan stok bahan.
+
+Mengembangkan transaksi kasir dan perhitungan pembayaran.
+
+Menyimpan transaksi dan menampilkan riwayat pembayaran.
+
+M4 — Implementasi Hibernate ORM
+
+Menambahkan dependency Hibernate.
+
+Membuat entity Menu.java dan Bahan.java.
+
+Membuat HibernateUtil.java dan DataDAO.java.
+
+Mengintegrasikan pengambilan data menu dan bahan menggunakan Hibernate.
+
+Menyempurnakan tampilan Data Menu.
+
+M5 — Implementasi Spring Framework
+
+Menambahkan dependency Spring Context, Spring ORM, dan Spring TX.
+
+Membuat applicationContext.xml, SpringUtil.java, dan BahanService.java.
+
+Mengimplementasikan penambahan stok bahan melalui aplikasi.
+
+Mengubah tampilan stok menjadi card bergambar.
+
+Menambahkan indikator ketersediaan stok.
+
+Menambahkan logo dan animasi ringan pada antarmuka.
+
+Melakukan refactoring kode agar lebih ringkas dan mudah dikelola.
+
+M6 — Implementasi JasperReports (Work in Progress)
+
+Menyiapkan Jaspersoft Studio 6.21.5.
+
+Membuat Data Adapter untuk koneksi MySQL.
+
+Membuat template LaporanPenjualan.jrxml.
+
+Mengatur query data transaksi yang berstatus LUNAS.
+
+Mendesain tampilan laporan penjualan.
+
+Menyiapkan integrasi laporan dengan aplikasi Java NetBeans.
+
+Status M6: Pengembangan masih berlangsung. Pengujian preview laporan melalui aplikasi NetBeans dan penyempurnaan desain akan dilanjutkan pada tahap berikutnya.
+
+Struktur Project
+
+NasiRamesKangDadang/
+├── pom.xml
+├── README.md
+└── src/main/
+    ├── java/com/mycompany/nasirameskangdadang/
+    │   ├── Main.java
+    │   ├── DataPanel.java
+    │   ├── Koneksi.java
+    │   ├── Menu.java
+    │   ├── Bahan.java
+    │   ├── DataDAO.java
+    │   ├── HibernateUtil.java
+    │   ├── SpringUtil.java
+    │   ├── BahanService.java
+    │   └── LaporanService.java
+    └── resources/
+        ├── applicationContext.xml
+        ├── images/
+        └── reports/
+            └── LaporanPenjualan.jrxml
+
+Catatan: Struktur di atas merupakan struktur target M6. File laporan dan class integrasi perlu dipastikan sudah disalin ke project sebelum tahap pengujian.
+
+Rencana Pengembangan Selanjutnya
+
+Menyelesaikan integrasi JasperReports dengan NetBeans.
+
+Menampilkan preview laporan penjualan.
+
+Menambahkan fitur cetak dan ekspor laporan PDF.
+
+Menyempurnakan desain laporan dengan identitas Nasi Rames Kang Dadang.
+
+Melakukan pengujian fitur laporan menggunakan data transaksi MySQL.
